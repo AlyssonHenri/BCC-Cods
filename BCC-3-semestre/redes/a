@@ -1,0 +1,26 @@
+# class janela_nick():
+#     def __init__(self):
+#         self.janela = ctk.CTk()
+#         self.janela.title("Insira seu nome de usuário")
+
+#         self.janela.login_input = ctk.CTkEntry(self.janela, placeholder_text="Nome de usuario:")
+#         self.janela.login_input.grid(row=0, column=1, padx=10, pady=10)
+
+#         self.janela.confirm_button = ctk.CTkButton(self.janela, text="Confirmar", command=self.confirma_nick)
+#         self.janela.confirm_button.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+
+#         self.janela.protocol("WM_DELETE_WINDOW", self.ao_fechar)
+
+#         self.janela.mainloop()
+
+#     def ao_fechar(self):
+#         self.janela.destroy()
+
+#     def confirma_nick(self):
+#         NICK = self.janela.login_input.get()
+
+#         if not NICK:
+#             ctk.messagebox.showerror("Erro", "Nome de usuário é obriagtório")
+#             return
+
+#         self.janela.destroy()

@@ -11,19 +11,15 @@ def limpa_terminal():
 def f(x, funcao):
     return eval(funcao)
 
-# Permite usar sen, cos, e, raiz na equação
+# Permite usar sen, cos, e, raiz, log na equação
 def ajustar_func(funcao):
-    if "cos(x)" in funcao:
-        funcao = funcao.replace("cos(x)", "math.cos(x)")
-    if "sen(x)" in funcao:
-        funcao = funcao.replace("sen(x)", "math.sin(x)")
-    if "sqrt(x)" in funcao:
-        funcao = funcao.replace("sqrt(x)", "math.sqrt(x)")
-    if "e" in funcao and "sen(x)" not in funcao:
-        funcao = funcao.replace("e", str(math.e))
+    funcao = funcao.replace("cos(", "math.cos(")
+    funcao = funcao.replace("sen(", "math.sin(")
+    funcao = funcao.replace("sqrt(", "math.sqrt(")
+    funcao = funcao.replace("log(", "math.log(")
+    funcao = funcao.replace("e", str(math.e))
     
     return funcao
-
 
 def MainLoop():
     retn_menu = 0  # Inicialize retn_menu aqui
@@ -44,15 +40,20 @@ def MainLoop():
                         "dentro deste programa as equações são construidas no seguinte formato\n\n"
                         "-> x**3 Representa um valor de x elevado a um numero, neste caso x elevado a 3.\n"
                         "-> 3*x  Representa uma multiplicação.\n"
-                        "-> sqrt(x)  Representa uma raiz.\n\n"
+                        "-> sqrt(x)  Representa uma raiz.\n"
+                        "-> cos(x)  Representa o cosseno de x.\n"
+                        "-> sen(x)  Representa o seno de x.\n"
+                        "-> log(x)  Representa o logaritmo natural de x.\n"
+                        "-> e  Representa o número de Euler.\n\n"
                         "Aqui estão alguns exemplos de como formatar sua entrada:\n"
                         "  x**3 - 9*x + 3\n\n"
                         "  (x+2) * (x+1)*x * (x-1)**3 * (x-2)\n\n"
                         "  x * cos(x) -2*x**2 +3*x -1\n\n"
                         "  x**2 -5 * sen(x) * e**2\n\n"
                         "  cos(x) - sqrt(x)\n\n"
+                        "  log(x) - 2\n\n"
                         "Pressione 0 para retornar ao menu\n"))
-            
+
             case 2:
                 retn_menu = 1  # Reinicialize retn_menu aqui
                 while retn_menu != 0:
@@ -63,7 +64,8 @@ def MainLoop():
                     fim = float(input("Digite o ponto [_ , x]: "))  # Fim do intervalo [x,y]
                     precisao = float(input("Digite o valor de precisão: "))  # Valor de parada do algoritmo
 
-                    print("\n|{:<15} | {:<20} | {:<25} | {:<15} |".format("Iteração", "X", "f(x)", "b - a"))
+                    print("x-------------------------------------------------------------------------------------x")
+                    print("|{:<15} | {:<20} | {:<25} | {:<15} |".format("Iteração", "X", "f(x)", "b - a"))
                     print("|-------------------------------------------------------------------------------------|")
 
                     a = start
@@ -88,9 +90,9 @@ def MainLoop():
                         # Faz formatação dos numeros positivos para deixar a tabela uniforme
                         y_form = " " + str(y) if y >= 0 else str(y)
                         print("|{:<15} | {:<20} | {:<25} | {:<15} |".format(itera, x, y_form, b - a))
+                    print("x-------------------------------------------------------------------------------------x")
 
                     retn_menu = int(input("\n\nPressione 0 para retornar ao menu\n"))
-
 
             case 3:
                 limpa_terminal()

@@ -3,11 +3,11 @@ import math
 
 def limpa_terminal():
     if os.name == 'posix':
-        os.system('clear')  # For Linux and macOS
+        os.system('clear')  # Para Linux e macOS
     else:
-        os.system('cls')    # For Windows
+        os.system('cls')    # Para Windows
 
-def f(x, funcao):
+def func_calc(x, funcao):
     return eval(funcao)
 
 def ajustar_func(funcao):
@@ -23,9 +23,9 @@ def MainLoop():
     while retn_menu != 3:
         limpa_terminal()
         selecao = int(input("----------------------------\n"
-                            "| 1 -> How to Use          |\n"
-                            "| 2 -> Calculate           |\n"
-                            "| 3 -> Exit Program        |\n"
+                            "| 1 -> Como usar           |\n"
+                            "| 2 -> Calcular            |\n"
+                            "| 3 -> Fechar Programa     |\n"
                             "----------------------------\n"))
 
         match selecao:
@@ -56,30 +56,37 @@ def MainLoop():
                 while retn_menu != 0:
                     limpa_terminal()
 
-                    # Input Section
+                    # Inputs
                     funcao = input("Digite a equação: ")
                     funcao = ajustar_func(funcao)
 
                     funcao_gx = input("Digite a equação iterada: ")
                     funcao_gx = ajustar_func(funcao_gx)
-                    gx = lambda x: f(x, funcao_gx)
+                    gx = lambda x: func_calc(x, funcao_gx)
 
                     x0 = float(input("Digite o valor de x0: "))
                     precisao = float(input("Insira o valor de precisão: "))
 
+                    print("x-------------------------------------------------------------x")
+                    print("|{:<15} | {:<20} |".format("Iteração", "X"))
+                    print("|-------------------------------------------------------------|")
+
                     # Implementação do metodo do ponto fixo
-                    def metodo_ponto_fixo(g, x0, precisao):
-                        x_antigo = x0
-                        x_novo = g(x_antigo)
-                        while abs(x_novo - x_antigo) >= precisao:
-                            x_antigo = x_novo
-                            x_novo = g(x_antigo)
-                        return x_novo
+                    x_antigo = x0
+                    x_novo = func_calc(x_antigo,funcao_gx)
+                    itera = 0
+
+                    while abs(x_novo - x_antigo) >= precisao:
+                        itera += 1
+                        x_antigo = x_novo
+                        x_novo = func_calc(x_antigo,funcao_gx)
+                        print("|{:<15} | {:<20} |".format(itera, x_novo))
 
 
 
-                    raiz_aproximada = metodo_ponto_fixo(gx, x0, precisao)
-                    print(f"Raiz aproximada encontrada: {raiz_aproximada}")
+
+                    print("x-------------------------------------------------------------x")
+                    #print(f"Raiz aproximada encontrada: {raiz_aproximada}")
 
                     retn_menu = int(input("\n\nDigite 0 para retornar ao menu\n"))
 

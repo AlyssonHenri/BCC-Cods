@@ -66,10 +66,10 @@ def MainLoop():
                     gx = lambda x: func_calc(x, funcao_gx)
 
                     x0 = float(input("Digite o valor de x0: "))
-                    precisao = float(input("Insira o valor de precisão: "))
+                    precisao = float(input("Insira o valor de precisão: ")) 
 
                     print("x---------------------------------------x")
-                    print("|{:<15} | {:<20} |".format("Iteração", "Resultado"))
+                    print("|{:<15} | {:<20} |".format("Iteração", "x"))
                     print("|---------------------------------------|")
 
                     # Implementação do metodo do ponto fixo
@@ -78,6 +78,7 @@ def MainLoop():
                     itera = 1
 
                     while abs(func_calc(x_antigo,funcao)) > precisao:
+        
                         print("|{:<15} | {:<20} |".format(itera, x_novo))
                         itera += 1
                         x_antigo = x_novo

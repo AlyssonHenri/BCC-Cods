@@ -88,7 +88,7 @@ def MainLoop():
                     # Implementação do metodo de ponto fixo
                     def metodo_ponto_fixo(g, x0, precisao):
                         x_antigo = x0
-                        x_novo = g(x_antigo)  # Initialize x_novo before the loop
+                        x_novo = g(x_antigo) 
                         while abs(x_novo - x_antigo) >= precisao:
                             x_antigo = x_novo
                             x_novo = g(x_antigo)

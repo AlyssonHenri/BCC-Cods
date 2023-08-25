@@ -14,6 +14,7 @@ def ajustar_func(funcao):
     funcao = funcao.replace("cos(", "math.cos(")
     funcao = funcao.replace("sen(", "math.sin(")
     funcao = funcao.replace("sqrt(", "math.sqrt(")
+    funcao = funcao.replace("cbrt(", "math.cbrt(")
     funcao = funcao.replace("log(", "math.log(")
     funcao = funcao.replace("e", str(math.e))
     return funcao
@@ -74,13 +75,14 @@ def MainLoop():
                     # Implementação do metodo do ponto fixo
                     x_antigo = x0
                     x_novo = func_calc(x_antigo,funcao_gx)
-                    itera = 0
+                    itera = 1
 
                     while abs(func_calc(x_antigo,funcao)) > precisao:
+                        print("|{:<15} | {:<20} |".format(itera, x_novo))
                         itera += 1
                         x_antigo = x_novo
                         x_novo = func_calc(x_antigo,funcao_gx)
-                        print("|{:<15} | {:<20} |".format(itera, x_novo))
+                        
 
                     print("x---------------------------------------x")
                     #print(f"Raiz aproximada encontrada: {raiz_aproximada}")

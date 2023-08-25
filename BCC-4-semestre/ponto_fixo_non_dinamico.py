@@ -3,9 +3,9 @@ import math
 
 def limpa_terminal():
     if os.name == 'posix':
-        os.system('clear')  # Para Linux e macOS
+        os.system('clear')  # For Linux and macOS
     else:
-        os.system('cls')    # Para Windows
+        os.system('cls')    # For Windows
 
 def func_calc(x, funcao):
     return eval(funcao)
@@ -56,7 +56,7 @@ def MainLoop():
                 while retn_menu != 0:
                     limpa_terminal()
 
-                    # Inputs
+                    # Input Section
                     funcao = input("Digite a equação: ")
                     funcao = ajustar_func(funcao)
 
@@ -67,25 +67,22 @@ def MainLoop():
                     x0 = float(input("Digite o valor de x0: "))
                     precisao = float(input("Insira o valor de precisão: "))
 
-                    print("x-------------------------------------------------------------x")
-                    print("|{:<15} | {:<20} |".format("Iteração", "X"))
-                    print("|-------------------------------------------------------------|")
+                    print("x---------------------------------------x")
+                    print("|{:<15} | {:<20} |".format("Iteração", "Resultado"))
+                    print("|---------------------------------------|")
 
                     # Implementação do metodo do ponto fixo
                     x_antigo = x0
                     x_novo = func_calc(x_antigo,funcao_gx)
                     itera = 0
 
-                    while abs(x_novo - x_antigo) >= precisao:
+                    while abs(func_calc(x_antigo,funcao)) > precisao:
                         itera += 1
                         x_antigo = x_novo
                         x_novo = func_calc(x_antigo,funcao_gx)
                         print("|{:<15} | {:<20} |".format(itera, x_novo))
 
-
-
-
-                    print("x-------------------------------------------------------------x")
+                    print("x---------------------------------------x")
                     #print(f"Raiz aproximada encontrada: {raiz_aproximada}")
 
                     retn_menu = int(input("\n\nDigite 0 para retornar ao menu\n"))

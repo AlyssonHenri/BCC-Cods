@@ -1,0 +1,99 @@
+import os
+import sympy as sp
+
+def limpa_terminal():
+    if os.name == 'posix':
+        os.system('clear')  # para Linux e macOS
+    else:
+        os.system('cls')    # para Windows
+
+def ajustar_func(funcao):
+    funcao = funcao.replace("cos(", "cos(")
+    funcao = funcao.replace("sen(", "sin(")
+    funcao = funcao.replace("sqrt(", "sqrt(")
+    funcao = funcao.replace("cbrt(", "cbrt(")
+    funcao = funcao.replace("log(", "log(")
+    funcao = funcao.replace("e", str(sp.E))
+    return funcao
+
+def MainLoop():
+    retn_menu = 0
+    while retn_menu != 3:
+        limpa_terminal()
+        selecao = int(input("----------------------------\n"
+                            "| 1 -> Como usar           |\n"
+                            "| 2 -> Calcular            |\n"
+                            "| 3 -> Fechar Programa     |\n"
+                            "----------------------------\n"))
+
+        match selecao:
+            case 1:
+                retn_menu = 1  # Reinicialize retn_menu aqui
+                limpa_terminal()
+                while retn_menu != 0:
+                    retn_menu = int(input("Ao selecionar a opção de calcular no menu inicial você sera requisitada(o) a inserir uma equação\n"
+                        "Após inserir a equação o valor de precisão deve ser inserido no formato -> 0.0001 ou equivalente ao desejado\n"
+                        "dentro deste programa as equações são construidas no seguinte formato\n\n"
+                        "-> x**3 Representa um valor de x elevado a um numero, neste caso x elevado a 3.\n"
+                        "-> 3*x  Representa uma multiplicação.\n"
+                        "-> sqrt(x)  Representa uma raiz.\n"
+                        "-> cos(x)  Representa o cosseno de x.\n"
+                        "-> sen(x)  Representa o seno de x.\n"
+                        "-> log(x)  Representa o logaritmo natural de x.\n"
+                        "-> e  Representa o número de Euler.\n\n"
+                        "Aqui estão alguns exemplos de como formatar sua entrada:\n"
+                        "  x**3 - 9*x + 3\n\n"
+                        "  (x+2) * (x+1)*x * (x-1)**3 * (x-2)\n\n"
+                        "  x * cos(x) -2*x**2 +3*x -1\n\n"
+                        "  x**2 -5 * sen(x) * e**2\n\n"
+                        "  cos(x) - sqrt(x)\n\n"
+                        "  log(x) - 2\n\n"
+                        "Pressione 0 para retornar ao menu\n"))
+
+            case 2:
+                retn_menu = 1
+                while retn_menu != 0:
+                    limpa_terminal()
+
+                    # Inputs
+                    funcao_str = input("Digite a equação: ")
+                    funcao = sp.sympify(ajustar_func(funcao_str))  # Convert to a SymPy expression
+
+                    x = sp.symbols('x')
+                    funcao_deriv = sp.diff(funcao, x)
+
+                    x_valor = float(input("Digite o valor de x: "))
+
+                    precisao = float(input("Insira o valor de precisão: ")) 
+
+                    print("x--------------------------------------------------------------x")
+                    print("|{:<15} | {:<20} | {:<20} |".format("Iteração", "x", "f(x)"))
+                    print("|--------------------------------------------------------------|")
+
+                    # Implementação do metodo de newton
+
+                    itera = 1
+
+                    while True:
+                        x_novo = x_valor - (funcao.subs(x, x_valor) / funcao_deriv.subs(x, x_valor))
+                        f_x = funcao.subs(x, x_novo)
+                        print("|{:<15} | {:<20} | {:<20} |".format(itera, format(x_novo, '.14f'), format(f_x, '.14f')))
+                        itera += 1
+                        if abs(x_novo - x_valor) < precisao:
+                            break
+                        x_valor = x_novo
+                    
+                    print("x--------------------------------------------------------------x")
+
+                    retn_menu = int(input("\n\nDigite 0 para retornar ao menu\n"))
+
+            case 3:
+                limpa_terminal()
+                print("\nObrigado por usar o programa")
+                retn_menu = 3
+
+            case _ :
+                # Case padrão para caso entre algum valor diferente, esse texto nunca deve aparecer, se está aparecendo algo de errado aconteceu
+                print("\nValor de entrada inválido!")
+
+MainLoop()

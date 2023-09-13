@@ -210,9 +210,9 @@ void LoopPrincipal() {
                     printf("Insira o valor de precisao: ");
                     scanf("%lf", &precisao);
 
-                    printf("x---------------------------------------x\n");
+                    printf("x----------------------------------x\n");
                     printf("|%-15s | %-15s |\n", "Iteracao", "x");
-                    printf("|---------------------------------------|\n");
+                    printf("|----------------------------------|\n");
 
                     // Implementacao do método do ponto fixo
                     double x_antigo = x0;
@@ -226,7 +226,7 @@ void LoopPrincipal() {
                         x_novo = calcula_expressao(funcao_gx, x_antigo);
                     }
 
-                    printf("x---------------------------------------x\n");
+                    printf("x----------------------------------x\n");
 
                     printf("\n\nDigite 0 para retornar ao menu\n");
                     scanf("%d", &retn_menu);
